@@ -2,17 +2,12 @@ body {
   margin: 0;
   padding: 0;
   font-family: sans-serif;
+  background-color: #000;
+  font-family: monospace;
+  color: #268;
 }
 
-.display-box-container {
-  min-height: 50px;
-  margin: 20px;
-  padding: 20px;
-  border: 2px blue dashed;
-  text-align: center;
-  letter-spacing: .6px;
-  line-height: 20px;
-}
+/* -------- Hannah --------- */
 
 .hannah {
   display: none;
@@ -23,7 +18,6 @@ body {
   right: 20px;
   border-radius: 50%;
 }
-
 .noGlow:hover {
   -webkit-animation: neon 1.5s ease-in-out infinite alternate;
   -moz-animation: neon 1.5s ease-in-out infinite alternate;
@@ -65,7 +59,17 @@ body {
   }
 }
 
-
+ /* -------- RepeatWords ------ */
+ .display-box-container {
+   min-height: 50px;
+   margin: 20px;
+   padding: 20px;
+   border: 2px gold dashed;
+   text-align: center;
+   letter-spacing: .6px;
+   line-height: 20px;
+   font-size: 24px;
+ }
 .Typist .Cursor {
   display: inline-block;
 }
