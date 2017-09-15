@@ -1,0 +1,81 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+}
+
+.display-box-container {
+  min-height: 50px;
+  margin: 20px;
+  padding: 20px;
+  border: 2px blue dashed;
+  text-align: center;
+  letter-spacing: .6px;
+  line-height: 20px;
+}
+
+.hannah {
+  display: none;
+  width: 45px;
+  height: 45px;
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  border-radius: 50%;
+}
+
+.noGlow:hover {
+  -webkit-animation: neon 1.5s ease-in-out infinite alternate;
+  -moz-animation: neon 1.5s ease-in-out infinite alternate;
+  animation: neon 1.5s ease-in-out infinite alternate;
+}
+.glowy {
+  -webkit-animation: neon 1.5s ease-in-out infinite alternate;
+  -moz-animation: neon 1.5s ease-in-out infinite alternate;
+  animation: neon 1.5s ease-in-out infinite alternate;
+}
+@-webkit-keyframes neon {
+  from {
+    box-shadow: 0 0 10px #3fd290, 0 0 20px #3fd290, 0 0 30px #3fd290, 0 0 40px #36A9F7, 0 0 70px #36A9F7, 0 0 80px #36A9F7, 0 0 100px #36A9F7, 0 0 150px #36A9F7;
+    filter: brightness(60%) grayscale(100%);
+  }
+  to {
+    box-shadow: 0 0 5px #3fd290, 0 0 10px #3fd290, 0 0 15px #3fd290, 0 0 20px #36A9F7, 0 0 35px #36A9F7, 0 0 40px #36A9F7, 0 0 50px #36A9F7, 0 0 63px #36A9F7;
+    filter: brightness(100%) grayscale(0%);
+  }
+}
+@-moz-keyframes neon {
+  from {
+    box-shadow: 0 0 10px #3fd290, 0 0 20px #3fd290, 0 0 30px #3fd290, 0 0 40px #36A9F7, 0 0 70px #36A9F7, 0 0 80px #36A9F7, 0 0 100px #36A9F7, 0 0 150px #36A9F7;
+    filter: brightness(60%) grayscale(100%);
+  }
+  to {
+    box-shadow: 0 0 5px #3fd290, 0 0 10px #3fd290, 0 0 15px #3fd290, 0 0 20px #36A9F7, 0 0 35px #36A9F7, 0 0 40px #36A9F7, 0 0 50px #36A9F7, 0 0 63px #36A9F7;
+    filter: brightness(100%) grayscale(0%);
+  }
+}
+@keyframes neon {
+  from {
+    box-shadow: 0 0 10px #3fd290, 0 0 20px #3fd290, 0 0 30px #3fd290, 0 0 40px #36A9F7, 0 0 70px #36A9F7, 0 0 80px #36A9F7, 0 0 100px #36A9F7, 0 0 150px #36A9F7;
+    filter: brightness(60%) grayscale(100%);
+  }
+  to {
+    box-shadow: 0 0 5px #3fd290, 0 0 10px #3fd290, 0 0 15px #3fd290, 0 0 20px #36A9F7, 0 0 35px #36A9F7, 0 0 40px #36A9F7, 0 0 50px #36A9F7, 0 0 63px #36A9F7;
+    filter: brightness(100%) grayscale(0%);
+  }
+}
+
+
+.Typist .Cursor {
+  display: inline-block;
+}
+.Typist .Cursor--blinking {
+  opacity: 1;
+  animation: blink 1s linear infinite;
+}
+
+@keyframes blink {
+  0% { opacity: 1; }
+  50% { opacity: 0; }
+  100% { opacity: 1; }
+}
