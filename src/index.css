@@ -4,26 +4,39 @@ body {
   font-family: sans-serif;
   background-color: #000;
   font-family: monospace;
-  color: #268;
+  color: #4bc3ff;
+}
+
+.hannah-app {
+  height: 100vh;
+  padding: 20px;
 }
 
 /* -------- Hannah --------- */
 
 .hannah {
-  display: none;
-  width: 45px;
-  height: 45px;
+  width: 200px;
+  height: 200px;
   position: fixed;
-  bottom: 20px;
-  right: 20px;
-  border-radius: 50%;
+  top: 50%;
+  left: 50%;
 }
-.noGlow:hover {
-  -webkit-animation: neon 1.5s ease-in-out infinite alternate;
-  -moz-animation: neon 1.5s ease-in-out infinite alternate;
-  animation: neon 1.5s ease-in-out infinite alternate;
+.glowy-container {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  box-shadow: 0 0 10px #000;
+  z-index: 10000;
+  position: absolute;
+  background-color: #fff;
+  cursor: pointer;
 }
 .glowy {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+}
+.glowy:hover {
   -webkit-animation: neon 1.5s ease-in-out infinite alternate;
   -moz-animation: neon 1.5s ease-in-out infinite alternate;
   animation: neon 1.5s ease-in-out infinite alternate;
@@ -62,7 +75,6 @@ body {
  /* -------- RepeatWords ------ */
  .display-box-container {
    min-height: 50px;
-   margin: 20px;
    padding: 20px;
    border: 2px gold dashed;
    text-align: center;

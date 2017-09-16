@@ -12,6 +12,7 @@ const hannahOptions = {
   continuous: true,
   soundex: true,
   listen: true,
+  speed: 0.7,
 };
 
 class HannahJS extends Component {
@@ -28,13 +29,12 @@ class HannahJS extends Component {
     CommandsManager.loadCommands();
   }
 
-  startAssistant = () => {
-    console.log('Artyom succesfully started !');
+  componentDidMount() {
+    this.startAssistant();
+  }
 
+  startAssistant = () => {
     Hannah.initialize(hannahOptions).then(() => {
-      // Display loaded commands in the console
-      console.log(Hannah.getAvailableCommands());
-      Hannah.say('Hello there, how are you?');
       this.setState({ artyomActive: true });
     }).catch((err) => {
       console.error("Oopsy daisy, this shouldn't happen !", err);
@@ -52,12 +52,13 @@ class HannahJS extends Component {
   }
 
   speakText = () => {
+    const self = this;
     this.setState({ artyomIsReading: true });
 
     // Speak text with Artyom
     Hannah.say(this.state.textareaValue, {
       onEnd() {
-        this.setState({ artyomIsReading: false });
+        self.setState({ artyomIsReading: false });
       },
     });
   }
@@ -79,17 +80,12 @@ class HannahJS extends Component {
            e.g `Generate report of April of this year`
         </p>
 
-        {/* Voice commands action buttons */}
         <input type="button" value="Start Artyom" disabled={this.state.artyomActive} onClick={this.startAssistant} />
         <input type="button" value="Stop Artyom" disabled={!this.state.artyomActive} onClick={this.stopAssistant} />
 
-        {/* Speech synthesis Area */}
-
         <p>I can read some text for you if you want:</p>
-
         <textarea rows="5" onChange={this.handleTextareaChange} value={this.state.textareaValue} />
         <br />
-        {/* Read the text inside the textarea with artyom */}
         <input type="button" value="Read Text" disabled={this.state.artyomIsReading} onClick={this.speakText} />
       </div>
     );
