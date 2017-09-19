@@ -6,7 +6,6 @@ import AbstractSettings from './AbstractSettings';
 import Glowy from './Glowy';
 import ArtyomCommandsManager from './../voiceCommands/CommandsManager.js';
 
-const Hannah = new Artyom();
 const hannahOptions = {
   lang: 'en-GB',
   debug: true,
@@ -20,14 +19,11 @@ const hannahOptions = {
 class HannahJS extends AbstractSettings {
   constructor(props, context) {
     super(props, context);
-    this.state = {
-      artyomActive: true,
-      textareaValue: '',
-      artyomIsReading: false,
-    };
+    this.state = { artyomActive: true };
 
+    this.Hannah = new Artyom();
     // Load some commands to Artyom using the commands manager
-    const CommandsManager = new ArtyomCommandsManager(Hannah);
+    const CommandsManager = new ArtyomCommandsManager(this.Hannah);
     CommandsManager.loadCommands();
   }
 
@@ -37,7 +33,8 @@ class HannahJS extends AbstractSettings {
   }
 
   startAssistant = () => {
-    Hannah.initialize(hannahOptions).then(() => {
+    this.Hannah.initialize(hannahOptions).then(() => {
+      this.Hannah.getVoices();
       this.setState({ artyomActive: true });
     }).catch((err) => {
       console.error("Oopsy daisy, this shouldn't happen !", err);
@@ -45,14 +42,14 @@ class HannahJS extends AbstractSettings {
   }
 
   stopAssistant = () => {
-    Hannah.fatality().then(() => {
+    this.Hannah.fatality().then(() => {
       console.log('Hannah has been succesfully stopped');
       this.setState({ artyomActive: false });
     });
   }
 
   recognizeText = () => {
-    Hannah.redirectRecognizedTextOutput((recognized, isFinal) => {
+    this.Hannah.redirectRecognizedTextOutput((recognized, isFinal) => {
       if (isFinal) {
         this.updateRedux('spokenWords', recognized.toUpperCase());
         this.updateRedux('thinking', false);
@@ -62,12 +59,13 @@ class HannahJS extends AbstractSettings {
     });
   }
 
+  stopMusic = () => this.Hannah.simulateInstruction('hannah stop the music');
+  startMusic = () => this.Hannah.simulateInstruction('play some music');
+
   render() {
     return (
       <div>
-        <section className="hannah">
-          <Glowy {...this.props} />
-        </section>
+        <Glowy startMusic={this.startMusic} {...this.props} />
 
         <section id="zone-music" style={{ display: 'none' }}>
           <header>
@@ -80,7 +78,7 @@ class HannahJS extends AbstractSettings {
               <br />
               <img id="zone-music-image" alt="music" style={{ height: '130px', width: '130px' }} />
             </div>
-            <a href="#" onClick={() => Hannah.simulateInstruction('hannah stop music')}>Close music</a>
+            <a role="button" tabIndex={0} onClick={this.stopMusic}>Close music</a>
           </div>
         </section>
       </div>

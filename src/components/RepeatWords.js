@@ -7,11 +7,6 @@ class RepeatWords extends PureComponent {
     spokenWords: PropTypes.string,
     thinking: PropTypes.bool,
   }
-  state = { done: false }
-
-  stopTyping = () => {
-    this.setState({ done: true });
-  }
 
   render() {
     const { spokenWords, thinking } = this.props;
