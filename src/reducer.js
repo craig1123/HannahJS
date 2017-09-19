@@ -11,8 +11,7 @@ export const Actions = {
 const updateState = (state, change) => state.updateIn(change.key, () => change.value);
 
 export const initialState = fromJS({
-  helpGlowy: false,
-  hovering: false,
+  spokenWords: 'I WELCOME YOU!',
 });
 
 export default function (state = initialState, action) {

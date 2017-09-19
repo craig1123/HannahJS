@@ -1,7 +1,8 @@
 /* eslint-disable no-console */
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import Artyom from 'artyom.js';
+import AbstractSettings from './AbstractSettings';
 import Glowy from './Glowy';
 import ArtyomCommandsManager from './../voiceCommands/CommandsManager.js';
 
@@ -13,13 +14,14 @@ const hannahOptions = {
   soundex: true,
   listen: true,
   speed: 0.7,
+  executionKeyword: 'hannah',
 };
 
-class HannahJS extends Component {
+class HannahJS extends AbstractSettings {
   constructor(props, context) {
     super(props, context);
     this.state = {
-      artyomActive: false,
+      artyomActive: true,
       textareaValue: '',
       artyomIsReading: false,
     };
@@ -31,6 +33,7 @@ class HannahJS extends Component {
 
   componentDidMount() {
     this.startAssistant();
+    this.recognizeText();
   }
 
   startAssistant = () => {
@@ -45,48 +48,41 @@ class HannahJS extends Component {
     Hannah.fatality().then(() => {
       console.log('Hannah has been succesfully stopped');
       this.setState({ artyomActive: false });
-    }).catch((err) => {
-      console.error("Oopsy daisy, this shouldn't happen neither!", err);
-      this.setState({ artyomActive: false });
     });
   }
 
-  speakText = () => {
-    const self = this;
-    this.setState({ artyomIsReading: true });
-
-    // Speak text with Artyom
-    Hannah.say(this.state.textareaValue, {
-      onEnd() {
-        self.setState({ artyomIsReading: false });
-      },
+  recognizeText = () => {
+    Hannah.redirectRecognizedTextOutput((recognized, isFinal) => {
+      if (isFinal) {
+        this.updateRedux('spokenWords', recognized.toUpperCase());
+        this.updateRedux('thinking', false);
+      } else {
+        this.updateRedux('thinking', true);
+      }
     });
-  }
-
-  handleTextareaChange = (e) => {
-    this.setState({ textareaValue: e.target.value });
   }
 
   render() {
     return (
       <div>
-        <div className="hannah">
+        <section className="hannah">
           <Glowy {...this.props} />
-        </div>
-        <h1>Welcome to Hannah Assistant</h1>
+        </section>
 
-        <p>
-          In this very basic assistant, you can say hello and ask for some reports
-           e.g `Generate report of April of this year`
-        </p>
-
-        <input type="button" value="Start Artyom" disabled={this.state.artyomActive} onClick={this.startAssistant} />
-        <input type="button" value="Stop Artyom" disabled={!this.state.artyomActive} onClick={this.stopAssistant} />
-
-        <p>I can read some text for you if you want:</p>
-        <textarea rows="5" onChange={this.handleTextareaChange} value={this.state.textareaValue} />
-        <br />
-        <input type="button" value="Read Text" disabled={this.state.artyomIsReading} onClick={this.speakText} />
+        <section id="zone-music" style={{ display: 'none' }}>
+          <header>
+            <iframe title="music" />
+          </header>
+          <div>
+            <div>
+              <h4>Music source - Spotify</h4>
+              <span className="songdesc" />
+              <br />
+              <img id="zone-music-image" alt="music" style={{ height: '130px', width: '130px' }} />
+            </div>
+            <a href="#" onClick={() => Hannah.simulateInstruction('hannah stop music')}>Close music</a>
+          </div>
+        </section>
       </div>
     );
   }

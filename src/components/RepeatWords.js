@@ -1,41 +1,38 @@
 import React, { PureComponent } from 'react';
-import Typist from 'react-typist';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
-const cursorOptions = {
-  hideWhenDone: true,
-  hideWhenDoneDelay: 3000,
-};
-
-export default class RepeatWords extends PureComponent {
+class RepeatWords extends PureComponent {
   static propTypes = {
     spokenWords: PropTypes.string,
+    thinking: PropTypes.bool,
   }
-  state = { content: 'container', done: false }
-
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.spokenWords !== this.state.content) {
-      this.setState({ content: nextProps.spokenWords });
-    }
-  }
+  state = { done: false }
 
   stopTyping = () => {
     this.setState({ done: true });
   }
 
   render() {
-    const { content } = this.state;
+    const { spokenWords, thinking } = this.props;
     return (
       <div className="display-box-container">
-        <Typist
-          className="Typist-message"
-          startDelay={100}
-          cursor={cursorOptions}
-          onTypingDone={this.stopTyping}
-        >
-          {content}
-        </Typist>
+        {thinking ?
+          <div className="spinner">
+            <div className="bounce1" />
+            <div className="bounce2" />
+            <div className="bounce3" />
+          </div>
+          :
+          spokenWords
+        }
       </div>
     );
   }
 }
+
+const mapStateToProps = state => ({
+  spokenWords: state.get('spokenWords'),
+  thinking: state.get('thinking'),
+});
+export default connect(mapStateToProps)(RepeatWords);

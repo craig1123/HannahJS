@@ -12,12 +12,10 @@ export default class CommandsManager {
       {
         indexes: ['Hello', 'How are you'],
         action: () => {
-          const randomGreeting = [
+          Artyom.sayRandom([
             'I really hate greetings',
             'I am feeling absolutely dreadful this morning',
-          ];
-          const item = randomizer(randomGreeting);
-          Artyom.say(item);
+          ]);
         },
       },
       {
@@ -28,7 +26,7 @@ export default class CommandsManager {
       },
       {
         description: 'Play random music in a iframe',
-        indexes: ['Jarvis Play some music', 'play music', 'play some music'],
+        indexes: ['Hannah play some music', 'play music', 'play some music'],
         action: () => {
           const musicGroup = [
             {
@@ -52,7 +50,7 @@ export default class CommandsManager {
               img: 'https://i.scdn.co/image/4a8139e72ad0f199a1fdae5ac878977450b37784',
             },
             {
-              desc: 'Daryl hall & John Oates - You make my dreams (500 days of summer)',
+              desc: 'Daryl hall  & John Oates - You make my dreams (500 days of summer)',
               url: 'https://p.scdn.co/mp3-preview/bc32bb9e556ef8f9d27564f3a995e02d9efdbc24',
               img: 'https://i.scdn.co/image/4a8139e72ad0f199a1fdae5ac878977450b37784',
             },
@@ -63,6 +61,14 @@ export default class CommandsManager {
           zoneMusic.show().find('iframe').attr('src', (item.url));
           zoneMusic.find('.songdesc').html(item.desc);
           image.attr('src', item.img);
+        },
+      },
+      {
+        description: "Say : 'Hannah stop the music now' if the music is playing",
+        indexes: ['Hannah stop the music', 'stop music'],
+        action: () => {
+          const zoneMusic = document.getElementById('zone-music');
+          zoneMusic.hide().find('iframe').attr('src', '');
         },
       },
     ]);
