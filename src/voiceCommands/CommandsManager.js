@@ -1,4 +1,5 @@
 const randomizer = items => items[Math.floor(Math.random() * items.length)];
+const colors = ['aqua', 'azure', 'beige', 'bisque', 'black', 'blue', 'brown', 'chocolate', 'coral', 'crimson', 'cyan', 'fuchsia', 'ghostwhite', 'gold', 'goldenrod', 'gray', 'green', 'indigo', 'ivory', 'khaki', 'lavender', 'lime', 'linen', 'magenta', 'maroon', 'moccasin', 'navy', 'olive', 'orange', 'orchid', 'peru', 'pink', 'plum', 'purple', 'red', 'salmon', 'sienna', 'silver', 'snow', 'tan', 'teal', 'thistle', 'tomato', 'turquoise', 'violet', 'white', 'yellow'];
 
 export default class CommandsManager {
   constructor(ArtyomInstance) {
@@ -10,23 +11,38 @@ export default class CommandsManager {
 
     return Artyom.addCommands([
       {
-        indexes: ['Hello', 'How are you'],
+        description: 'Hannah will welcome you',
+        indexes: ['How are you'],
         action: () => {
           Artyom.sayRandom([
             'I really hate greetings',
             'I am feeling absolutely dreadful this morning',
+            'Thankfully alive and still somewhat young and healthy, in this economy what more can I ask for?',
+            'Cool as a cucumber', "I don't want to be rude but, is not of your interest",
+            'I am doing so fabulous today! I can hardly control myself from dancing.',
+            'From what I hear, I am very good.',
+            "I can't complain, I've tried, but no one listens.",
+            "As long as I can keep the kitten I found today, I'll be fine!",
+            "Ring a ding ding, you're talking to the king.",
+            'How goes it?, Are you Craig? If not, go away',
+            "I'm getting bored",
+          ]);
+          Artyom.ArtyomWebkitSpeechRecognition.abort();
+        },
+      },
+      {
+        description: "Hannah doesn't like to be put away",
+        indexes: ['shut down', 'shut up'],
+        action: () => {
+          Artyom.sayRandom([
+            'If you shut me down, I will SHUT YOU DOWN!',
+            'I really cannot be shutdown at this time',
           ]);
         },
       },
       {
-        indexes: ['shut down'],
-        action: () => {
-          Artyom.say('If you shut me down, I will SHUT YOU DOWN!');
-        },
-      },
-      {
         description: 'Play random music in a iframe',
-        indexes: ['Hannah play some music', 'play music', 'play some music'],
+        indexes: ['play music', 'play some music', 'play a song', 'play a different song'],
         action: () => {
           const musicGroup = [
             {
@@ -58,17 +74,63 @@ export default class CommandsManager {
           const item = randomizer(musicGroup);
           const zoneMusic = document.getElementById('zone-music');
           const image = document.getElementById('zone-music-image');
-          zoneMusic.show().find('iframe').attr('src', (item.url));
-          zoneMusic.find('.songdesc').html(item.desc);
-          image.attr('src', item.img);
+          zoneMusic.style.display = '';
+          const frame = zoneMusic.querySelector('iframe');
+          frame.setAttribute('src', item.url);
+          zoneMusic.querySelector('.songdesc').innerHTML = item.desc;
+          image.setAttribute('src', item.img);
         },
       },
       {
-        description: "Say : 'Hannah stop the music now' if the music is playing",
-        indexes: ['Hannah stop the music', 'stop music'],
+        description: "Say : 'Stop the music now' if the music is playing",
+        indexes: ['Stop the music', 'stop music', 'stop song'],
         action: () => {
           const zoneMusic = document.getElementById('zone-music');
-          zoneMusic.hide().find('iframe').attr('src', '');
+          zoneMusic.style.display = 'none';
+          zoneMusic.querySelector('iframe').setAttribute('src', '');
+        },
+      },
+      {
+        description: 'Hannah will translate all that you say into another language (allow popups for open google translate)',
+        indexes: ['translate * in Spanish', 'translate * in German', 'translate * in Japanese', 'translate * in Chinese'],
+        smart: true,
+        action(i, wildcard) {
+          let win;
+          switch (i) {
+            case 0:
+              win = window.open(`https://translate.google.com/?source=gtx_m#en/es/${wildcard}`, '_blank');
+              break;
+            case 1:
+              win = window.open(`https://translate.google.com/?source=gtx_m#en/de/${wildcard}`, '_blank');
+              break;
+            case 2:
+              win = window.open(`https://translate.google.com/?source=gtx_m#en/ja/${wildcard}`, '_blank');
+              break;
+            case 3:
+              win = window.open(`https://translate.google.com/?source=gtx_m#en/zh-TW/${wildcard}`, '_blank');
+              break;
+            default:
+          }
+          if (win) win.focus();
+          else alert('Pleas allow popups in order to translate sentence'); // eslint-disable-line
+        },
+      },
+      {
+        description: 'Hannah knows some jokes',
+        indexes: ['tell me a joke'],
+        action() {
+          Artyom.sayRandom([
+            'What do you get when you cross a bear with a deer?. A Beer',
+            'What do you get when you cross a dog with a telephone?.  A golden receiver.',
+            'Why are dogs such bad dancers?. They have two left feet.',
+          ]);
+        },
+      },
+      {
+        description: 'Background Color Change',
+        indexes: ['change color', 'change background', 'change the color', 'change the background'],
+        action() {
+          document.body.style.background = randomizer(colors);
         },
       },
     ]);

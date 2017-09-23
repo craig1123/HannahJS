@@ -2,9 +2,12 @@ body {
   margin: 0;
   padding: 0;
   font-family: sans-serif;
-  background-color: #000;
   font-family: monospace;
   color: #4bc3ff;
+}
+
+a {
+  cursor: pointer;
 }
 
 .hannah-app {
@@ -119,4 +122,9 @@ body {
      -webkit-transform: scale(1.0);
      transform: scale(1.0);
    }
+ }
+
+ #zone-music {
+   display: flex;
+   justify-content: space-evenly;
  }

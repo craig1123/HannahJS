@@ -4,23 +4,24 @@ import { connect } from 'react-redux';
 import Artyom from 'artyom.js';
 import AbstractSettings from './AbstractSettings';
 import Glowy from './Glowy';
+import Music from './Music';
 import ArtyomCommandsManager from './../voiceCommands/CommandsManager.js';
 
 const hannahOptions = {
   lang: 'en-GB',
-  debug: true,
+  debug: 'false',
   continuous: true,
   soundex: true,
   listen: true,
   speed: 0.7,
-  executionKeyword: 'hannah',
+  executionKeyword: 'Hannah',
+  obeyKeywod: 'Hannah',
+  name: 'Hannah',
 };
 
 class HannahJS extends AbstractSettings {
   constructor(props, context) {
     super(props, context);
-    this.state = { artyomActive: true };
-
     this.Hannah = new Artyom();
     // Load some commands to Artyom using the commands manager
     const CommandsManager = new ArtyomCommandsManager(this.Hannah);
@@ -30,33 +31,33 @@ class HannahJS extends AbstractSettings {
   componentDidMount() {
     this.startAssistant();
     this.recognizeText();
+    this.getCommands();
   }
 
   startAssistant = () => {
     this.Hannah.initialize(hannahOptions).then(() => {
-      this.Hannah.getVoices();
-      this.setState({ artyomActive: true });
+      this.Hannah.getAvailableCommands();
     }).catch((err) => {
       console.error("Oopsy daisy, this shouldn't happen !", err);
     });
   }
 
-  stopAssistant = () => {
-    this.Hannah.fatality().then(() => {
-      console.log('Hannah has been succesfully stopped');
-      this.setState({ artyomActive: false });
+  recognizeText = () => {
+    this.Hannah.redirectRecognizedTextOutput((recognized, isFinal) => {
+      if (!this.Hannah.isSpeaking()) {
+        if (isFinal) {
+          this.updateRedux('spokenWords', recognized.toUpperCase());
+          this.updateRedux('thinking', false);
+        } else {
+          this.updateRedux('thinking', true);
+        }
+      }
     });
   }
 
-  recognizeText = () => {
-    this.Hannah.redirectRecognizedTextOutput((recognized, isFinal) => {
-      if (isFinal) {
-        this.updateRedux('spokenWords', recognized.toUpperCase());
-        this.updateRedux('thinking', false);
-      } else {
-        this.updateRedux('thinking', true);
-      }
-    });
+  getCommands = () => {
+    const commands = this.Hannah.getAvailableCommands();
+    this.updateRedux('commands', commands);
   }
 
   stopMusic = () => this.Hannah.simulateInstruction('hannah stop the music');
@@ -66,21 +67,7 @@ class HannahJS extends AbstractSettings {
     return (
       <div>
         <Glowy startMusic={this.startMusic} {...this.props} />
-
-        <section id="zone-music" style={{ display: 'none' }}>
-          <header>
-            <iframe title="music" />
-          </header>
-          <div>
-            <div>
-              <h4>Music source - Spotify</h4>
-              <span className="songdesc" />
-              <br />
-              <img id="zone-music-image" alt="music" style={{ height: '130px', width: '130px' }} />
-            </div>
-            <a role="button" tabIndex={0} onClick={this.stopMusic}>Close music</a>
-          </div>
-        </section>
+        <Music stopMusic={this.stopMusic} />
       </div>
     );
   }
