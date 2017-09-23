@@ -11,7 +11,7 @@ export const Actions = {
 const updateState = (state, change) => state.updateIn(change.key, () => change.value);
 
 export const initialState = fromJS({
-  spokenWords: 'I WELCOME YOU!',
+  spokenWords: 'WElCOME! TO GET MY ATTENTION, say the keyword "Hannah" followed by a command',
 });
 
 export default function (state = initialState, action) {

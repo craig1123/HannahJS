@@ -5,6 +5,7 @@ import Artyom from 'artyom.js';
 import AbstractSettings from './AbstractSettings';
 import Glowy from './Glowy';
 import Music from './Music';
+import CommandList from './CommandList';
 import ArtyomCommandsManager from './../voiceCommands/CommandsManager.js';
 
 const hannahOptions = {
@@ -14,8 +15,6 @@ const hannahOptions = {
   soundex: true,
   listen: true,
   speed: 0.7,
-  executionKeyword: 'Hannah',
-  obeyKeywod: 'Hannah',
   name: 'Hannah',
 };
 
@@ -60,14 +59,15 @@ class HannahJS extends AbstractSettings {
     this.updateRedux('commands', commands);
   }
 
-  stopMusic = () => this.Hannah.simulateInstruction('hannah stop the music');
-  startMusic = () => this.Hannah.simulateInstruction('play some music');
+  stopMusic = () => this.Hannah.simulateInstruction('stop the music');
+  startMusic = () => this.Hannah.simulateInstruction('Hannah play music');
 
   render() {
     return (
       <div>
         <Glowy startMusic={this.startMusic} {...this.props} />
         <Music stopMusic={this.stopMusic} />
+        <CommandList />
       </div>
     );
   }

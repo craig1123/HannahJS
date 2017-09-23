@@ -11,7 +11,7 @@ export default class CommandsManager {
 
     return Artyom.addCommands([
       {
-        description: 'Hannah will welcome you',
+        description: 'Hannah has feelings too',
         indexes: ['How are you'],
         action: () => {
           Artyom.sayRandom([
@@ -41,8 +41,8 @@ export default class CommandsManager {
         },
       },
       {
-        description: 'Play random music in a iframe',
-        indexes: ['play music', 'play some music', 'play a song', 'play a different song'],
+        description: 'Plays random music',
+        indexes: ['play music', 'play a different song', 'play some music', 'play a song'],
         action: () => {
           const musicGroup = [
             {
@@ -82,7 +82,7 @@ export default class CommandsManager {
         },
       },
       {
-        description: "Say : 'Stop the music now' if the music is playing",
+        description: 'Stops the music if it is playing',
         indexes: ['Stop the music', 'stop music', 'stop song'],
         action: () => {
           const zoneMusic = document.getElementById('zone-music');
@@ -116,8 +116,8 @@ export default class CommandsManager {
         },
       },
       {
-        description: 'Hannah knows some jokes',
-        indexes: ['tell me a joke'],
+        description: 'Hannah will tell some jokes',
+        indexes: ['tell me a joke', 'tell me a Dad joke'],
         action() {
           Artyom.sayRandom([
             'What do you get when you cross a bear with a deer?. A Beer',

@@ -2,8 +2,10 @@
   "name": "hannahjs",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://craig1123.github.io/hannahjs",
   "dependencies": {
     "artyom.js": "^1.0.6",
+    "gh-pages": "^1.0.0",
     "immutable": "^3.8.1",
     "prop-types": "^15.5.10",
     "react": "^15.6.1",
@@ -16,6 +18,8 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   },

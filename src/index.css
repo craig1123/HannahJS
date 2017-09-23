@@ -3,11 +3,27 @@ body {
   padding: 0;
   font-family: sans-serif;
   font-family: monospace;
+  font-size: 16px;
   color: #4bc3ff;
 }
 
 a {
   cursor: pointer;
+}
+
+a:hover {
+  color: #2aadee;
+}
+
+.preview {
+  display: none;
+  width: 100%;
+}
+
+.preview-tag:hover + .preview, .preview:hover {
+  display: block;
+  position: relative;
+  z-index: 1000;
 }
 
 .hannah-app {
@@ -30,7 +46,7 @@ a {
   height: 100%;
   border-radius: 50%;
   box-shadow: 0 0 10px #000;
-  z-index: 10000;
+  z-index: 500;
   position: absolute;
   background-color: #fff;
   cursor: pointer;
@@ -75,56 +91,79 @@ a {
 }
 
  /* -------- RepeatWords ------ */
- .display-box-container {
-   min-height: 50px;
-   padding: 30px 20px 10px;
-   border: 2px gold dashed;
-   text-align: center;
-   letter-spacing: .6px;
-   line-height: 20px;
-   font-size: 24px;
- }
- .spinner {
-   margin: 10px auto 0;
- }
+.display-box-container {
+  min-height: 50px;
+  padding: 30px 20px 10px;
+  border: 2px gold dashed;
+  text-align: center;
+  letter-spacing: .6px;
+  line-height: 20px;
+  font-size: 24px;
+}
+.spinner {
+  margin: 10px auto 0;
+}
 
- .spinner > div {
-   width: 18px;
-   height: 18px;
-   background-color: #4bc3ff;
+.spinner > div {
+  width: 18px;
+  height: 18px;
+  background-color: #4bc3ff;
+  border-radius: 100%;
+  display: inline-block;
+  -webkit-animation: sk-bouncedelay 1.4s infinite ease-in-out both;
+  animation: sk-bouncedelay 1.4s infinite ease-in-out both;
+}
 
-   border-radius: 100%;
-   display: inline-block;
-   -webkit-animation: sk-bouncedelay 1.4s infinite ease-in-out both;
-   animation: sk-bouncedelay 1.4s infinite ease-in-out both;
- }
+.spinner .bounce1 {
+  -webkit-animation-delay: -0.32s;
+  animation-delay: -0.32s;
+}
 
- .spinner .bounce1 {
-   -webkit-animation-delay: -0.32s;
-   animation-delay: -0.32s;
- }
+.spinner .bounce2 {
+  -webkit-animation-delay: -0.16s;
+  animation-delay: -0.16s;
+}
 
- .spinner .bounce2 {
-   -webkit-animation-delay: -0.16s;
-   animation-delay: -0.16s;
- }
+@-webkit-keyframes sk-bouncedelay {
+  0%, 80%, 100% { -webkit-transform: scale(0) }
+  40% { -webkit-transform: scale(1.0) }
+}
 
- @-webkit-keyframes sk-bouncedelay {
-   0%, 80%, 100% { -webkit-transform: scale(0) }
-   40% { -webkit-transform: scale(1.0) }
- }
+@keyframes sk-bouncedelay {
+  0%, 80%, 100% {
+    -webkit-transform: scale(0);
+    transform: scale(0);
+  } 40% {
+    -webkit-transform: scale(1.0);
+    transform: scale(1.0);
+  }
+}
 
- @keyframes sk-bouncedelay {
-   0%, 80%, 100% {
-     -webkit-transform: scale(0);
-     transform: scale(0);
-   } 40% {
-     -webkit-transform: scale(1.0);
-     transform: scale(1.0);
-   }
- }
+.modal-style {
+  position: fixed;
+  background-color: #fff;
+  border-radius: 5px;
+  top: 50px;
+  left: 10%;
+  width: 75%;
+  min-height: 200px;
+  max-height: 550px;
+  padding: 10px 20px;
+  z-index: 1000;
+  font-size: 20px;
+  box-shadow: 0 2px 4px 0 #7e7e7e;
+  border: solid 1px #c2c5ca;
+  overflow: auto;
+}
 
- #zone-music {
-   display: flex;
-   justify-content: space-evenly;
- }
+#zone-music {
+  display: flex;
+  justify-content: space-around;
+}
+
+@media screen and (max-width: 481px) {
+  .modal-style {
+    width: inherit;
+    left:0
+  }
+}
