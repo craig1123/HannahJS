@@ -11,7 +11,7 @@ export default class Glowy extends AbstractSettings {
     return (
       <section onClick={this.handleClick} role="presentation" className="hannah">
         <div className="glowy-container">
-          <div className="glowy" />
+          <div className={`glowy ${this.props.thinking ? 'glow-talk' : ''}`} />
         </div>
       </section>
     );

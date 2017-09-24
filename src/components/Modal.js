@@ -25,7 +25,7 @@ const styles = {
     textAlign: 'center',
   },
   preview: {
-    marginTop: '50px',
+    marginTop: '32px',
   },
 };
 

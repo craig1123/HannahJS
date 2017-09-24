@@ -36,9 +36,9 @@ a:hover {
   width: 150px;
   height: 150px;
   position: fixed;
-  border: 15px red solid;
+  border: 15px black solid;
   border-radius: 50%;
-  top: 43%;
+  top: 45%;
   left: 43%;
 }
 .glowy-container {
@@ -55,6 +55,13 @@ a:hover {
   width: 100%;
   height: 100%;
   border-radius: 50%;
+}
+.glowy:hover {
+  -webkit-animation: neon 1.5s ease-in-out infinite alternate;
+  -moz-animation: neon 1.5s ease-in-out infinite alternate;
+  animation: neon 1.5s ease-in-out infinite alternate;
+}
+.glow-talk {
   -webkit-animation: neon 1.5s ease-in-out infinite alternate;
   -moz-animation: neon 1.5s ease-in-out infinite alternate;
   animation: neon 1.5s ease-in-out infinite alternate;

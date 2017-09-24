@@ -18,12 +18,13 @@ export default class CommandsManager {
             'I really hate greetings',
             'I am feeling absolutely dreadful this morning',
             'Thankfully alive and still somewhat young and healthy, in this economy what more can I ask for?',
-            'Cool as a cucumber', "I don't want to be rude but, is not of your interest",
+            'Cool as a cucumber',
+            "I don't want to be rude but, it's not of your interest",
             'I am doing so fabulous today! I can hardly control myself from dancing.',
             'From what I hear, I am very good.',
             "I can't complain, I've tried, but no one listens.",
             "As long as I can keep the kitten I found today, I'll be fine!",
-            "Ring a ding ding, you're talking to the king.",
+            "Ring a ding deen, you're talking to the Queen.",
             'How goes it?, Are you Craig? If not, go away',
             "I'm getting bored",
           ]);
@@ -112,7 +113,7 @@ export default class CommandsManager {
             default:
           }
           if (win) win.focus();
-          else alert('Pleas allow popups in order to translate sentence'); // eslint-disable-line
+          else alert('Please allow popups in order to translate sentence'); // eslint-disable-line
         },
       },
       {
@@ -122,7 +123,12 @@ export default class CommandsManager {
           Artyom.sayRandom([
             'What do you get when you cross a bear with a deer?. A Beer',
             'What do you get when you cross a dog with a telephone?.  A golden receiver.',
-            'Why are dogs such bad dancers?. They have two left feet.',
+            "You've heard the rumor going around about butter?. Nevermind. I shouldn't spread it",
+            "What's brown and sticky?. A stick. Ha. Ha. ha.",
+            'What did the buffalo say to his son when he left for college?.. Bison',
+            'Why did the can-crusher quit his job?. Because it was "soda" pressing.',
+            "Mine and Craig's wedding was so beautiful. Even the cake was is tiers",
+            'What do you call a sketchy Italian neighborhood?. The spaghetto',
           ]);
         },
       },

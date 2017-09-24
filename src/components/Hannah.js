@@ -6,7 +6,10 @@ import AbstractSettings from './AbstractSettings';
 import Glowy from './Glowy';
 import Music from './Music';
 import CommandList from './CommandList';
+import Modal from './Modal';
+import About from './About';
 import ArtyomCommandsManager from './../voiceCommands/CommandsManager.js';
+import allowMic from './../assets/allow-mic.png';
 
 const hannahOptions = {
   lang: 'en-GB',
@@ -15,16 +18,17 @@ const hannahOptions = {
   soundex: true,
   listen: true,
   speed: 0.7,
-  name: 'Hannah',
 };
 
 class HannahJS extends AbstractSettings {
-  constructor(props, context) {
-    super(props, context);
+  constructor() {
+    super();
     this.Hannah = new Artyom();
+    this.Hannah.ArtyomVoicesIdentifiers['en-GB'] = ['Google UK English Female', 'en_GB', 'en-GB'];
     // Load some commands to Artyom using the commands manager
     const CommandsManager = new ArtyomCommandsManager(this.Hannah);
     CommandsManager.loadCommands();
+    this.state = { error: '', open: false };
   }
 
   componentDidMount() {
@@ -34,10 +38,8 @@ class HannahJS extends AbstractSettings {
   }
 
   startAssistant = () => {
-    this.Hannah.initialize(hannahOptions).then(() => {
-      this.Hannah.getAvailableCommands();
-    }).catch((err) => {
-      console.error("Oopsy daisy, this shouldn't happen !", err);
+    this.Hannah.initialize(hannahOptions).catch((err) => {
+      this.setState({ error: err, open: true });
     });
   }
 
@@ -59,21 +61,34 @@ class HannahJS extends AbstractSettings {
     this.updateRedux('commands', commands);
   }
 
+  settleError = () => this.setState({ open: false });
   stopMusic = () => this.Hannah.simulateInstruction('stop the music');
-  startMusic = () => this.Hannah.simulateInstruction('Hannah play music');
+  startMusic = () => this.Hannah.simulateInstruction('play a song');
 
   render() {
+    const { open, error } = this.state;
     return (
       <div>
         <Glowy startMusic={this.startMusic} {...this.props} />
         <Music stopMusic={this.stopMusic} />
+        <About />
         <CommandList />
+        <Modal show={open} onClose={this.settleError}>
+          Could not start Hannah because: {error}.
+          {error === 'not-allowed' &&
+            <div>
+              Give this website microphone capabilities
+              <img src={allowMic} alt="allow microphone screenshot" height="440px" width="375px" />
+            </div>
+          }
+          {error === 'audio-capture' && 'Hannah needs a microphone to work'}
+        </Modal>
       </div>
     );
   }
 }
 
 const mapStateToProps = state => ({ // eslint-disable-line
-
+  thinking: state.get('thinking'),
 });
 export default (connect(mapStateToProps)(HannahJS));

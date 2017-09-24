@@ -33,6 +33,20 @@ class CommandList extends PureComponent {
       this.setState({ open: bool });
     }
 
+    mapCommands = command => (
+      <li key={command.description} style={styles.command}>
+        <div>
+            Say: <span style={styles.underline}>{command.indexes[0]}</span>&nbsp;
+          {command.indexes[1] &&
+            <span>
+              or <span style={styles.underline}>{command.indexes[1]}</span>
+            </span>
+          }
+        </div>
+        Expected: {command.description}
+      </li>
+    )
+
     render() {
       const { commands } = this.props;
       return (
@@ -41,20 +55,12 @@ class CommandList extends PureComponent {
           <Modal onClose={this.toggleModal(false)} show={this.state.open}>
             <h2 style={styles.zero}>Commands</h2>
             <ul style={styles.commands}>
-              {commands && commands.map(command => (
-                <li key={command.description} style={styles.command}>
-                  <div>
-                      Say: <span style={styles.underline}>{command.indexes[0]}</span>&nbsp;
-                    {command.indexes[1] &&
-                      <span>
-                        or <span style={styles.underline}>{command.indexes[1]}</span>
-                      </span>
-                    }
-                  </div>
-                  Expected: {command.description}
-                </li>
-              ))}
+              {commands && commands.map(this.mapCommands)}
             </ul>
+            <div>
+              Want to add a command? Post an issue <a href="https://github.com/craig1123/hannahjs/issues">Here</a>
+
+            </div>
           </Modal>
         </div>
       );
