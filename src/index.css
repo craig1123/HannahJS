@@ -173,6 +173,8 @@ a:hover {
     width: inherit;
     left:0
   }
+}
+@media screen and (max-width: 768px) {
   .hannah {
     height: 100px;
     width: 100px;
