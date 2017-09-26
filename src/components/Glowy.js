@@ -1,19 +1,17 @@
 import React from 'react';
-import AbstractSettings from './AbstractSettings';
+import PropTypes from 'prop-types';
 
-export default class Glowy extends AbstractSettings {
-  handleClick = () => {
-    this.props.startMusic();
-    // this.updateRedux('helpGlowy', !this.props.helpGlowy)
-  }
+const Glowy = ({ randomCommand, thinking }) => (
+  <section onClick={randomCommand} role="presentation" className="hannah">
+    <div className="glowy-container">
+      <div className={`glowy ${thinking ? 'glow-talk' : ''}`} />
+    </div>
+  </section>
+);
 
-  render() {
-    return (
-      <section onClick={this.handleClick} role="presentation" className="hannah">
-        <div className="glowy-container">
-          <div className={`glowy ${this.props.thinking ? 'glow-talk' : ''}`} />
-        </div>
-      </section>
-    );
-  }
-}
+Glowy.propTypes = {
+  randomCommand: PropTypes.func,
+  thinking: PropTypes.bool,
+};
+
+export default Glowy;

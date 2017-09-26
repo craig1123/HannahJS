@@ -118,7 +118,7 @@ export default class CommandsManager {
       },
       {
         description: 'Hannah will tell some jokes',
-        indexes: ['tell me a joke', 'tell me a Dad joke'],
+        indexes: ['tell me a joke', 'tell me a Dad joke', 'tell a joke'],
         action() {
           Artyom.sayRandom([
             'What do you get when you cross a bear with a deer?. A Beer',
@@ -127,7 +127,7 @@ export default class CommandsManager {
             "What's brown and sticky?. A stick. Ha. Ha. ha.",
             'What did the buffalo say to his son when he left for college?.. Bison',
             'Why did the can-crusher quit his job?. Because it was "soda" pressing.',
-            "Mine and Craig's wedding was so beautiful. Even the cake was is tiers",
+            "Mine and Craig's wedding was so beautiful. Even the cake was in tiers",
             'What do you call a sketchy Italian neighborhood?. The spaghetto',
           ]);
         },

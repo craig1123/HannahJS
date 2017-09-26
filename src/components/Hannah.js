@@ -61,15 +61,21 @@ class HannahJS extends AbstractSettings {
     this.updateRedux('commands', commands);
   }
 
+  randomCommand = () => {
+    const { commands } = this.props;
+    const random = commands[Math.floor(Math.random() * commands.length)];
+    console.log(random.indexes[0]);
+    this.Hannah.simulateInstruction(random.indexes[0]);
+  }
+
   settleError = () => this.setState({ open: false });
   stopMusic = () => this.Hannah.simulateInstruction('stop the music');
-  startMusic = () => this.Hannah.simulateInstruction('play a song');
 
   render() {
     const { open, error } = this.state;
     return (
       <div>
-        <Glowy startMusic={this.startMusic} {...this.props} />
+        <Glowy randomCommand={this.randomCommand} {...this.props} />
         <Music stopMusic={this.stopMusic} />
         <About />
         <CommandList />
@@ -90,5 +96,6 @@ class HannahJS extends AbstractSettings {
 
 const mapStateToProps = state => ({ // eslint-disable-line
   thinking: state.get('thinking'),
+  commands: state.get('commands'),
 });
 export default (connect(mapStateToProps)(HannahJS));
